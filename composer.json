@@ -1,0 +1,21 @@
+{
+    "name": "saghar/yii2-address-module",
+    "description": "address module",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension","address","module"],
+    "license": "LGPL-3.0+",
+    "authors": [
+        {
+            "name": "Saghar Mojdehi",
+            "email": "saghar.mojdehi@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "~2.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "saghar\\address\\": ""
+        }
+    }
+}
