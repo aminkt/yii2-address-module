@@ -1,7 +1,10 @@
 <?php
+/** @var \yii\web\View $this */
 /** @var \saghar\address\models\Address $model */
-/** @var \saghar\address\models\State $states */
+/** @var \saghar\address\models\State[] $states */
 /** @var \saghar\address\models\State $stateModel */
+
+$url = \yii\helpers\Url::to(['/address/default/get-cities'], true);
 ?>
 <div class="addressManager-default-index">
     <h1><?= $this->context->action->uniqueId ?></h1>
@@ -13,19 +16,11 @@
         <?= $form->field($model, 'address')->textarea() ?>
         <?= $form->field($model, 'zipCode')->textInput() ?>
         <?= $form->field($model, 'cityId')->textInput() ?>
-<!--        --><?//= $form->field($stateModel, 'name')->widget(kartik\select2\Select2::classname(), [
-//            'data' => $states,
-//            'language' => 'de',
-//            'options' => ['placeholder' => 'Select a state ...'],
-//            'pluginOptions' => [
-//                'allowClear' => true
-//            ],
-//        ]); ?>
-        <?= \yii\helpers\Html::submitButton("Submit", [
-            'class' => 'btn btn-primary'
-        ]) ?>
+    <?= \yii\helpers\Html::submitButton("Submit", [
+        'class' => 'btn btn-primary'
+    ]) ?>
 
 
-        <?php \yii\widgets\ActiveForm::end(); ?>
+    <?php \yii\widgets\ActiveForm::end(); ?>
     </p>
 </div>

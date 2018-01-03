@@ -50,6 +50,9 @@
                         if ($action === 'delete') {
                             return \yii\helpers\Url::to(['default/delete', 'id' => $model->id]);
                         }
+                        if ($action == 'view') {
+                            return  \yii\helpers\Url::to(['default/view', 'id' => $model->id]);
+                        }
                     }
                 ],
             ]

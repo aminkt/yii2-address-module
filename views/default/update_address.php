@@ -12,14 +12,7 @@
         >
         <?= $form->field($model, 'address')->textarea() ?>
         <?= $form->field($model, 'zipCode')->textInput() ?>
-<!--        --><?//= $form->field($stateModel, 'name')->widget(kartik\select2\Select2::classname(), [
-//            'data' => $states,
-//            'language' => 'de',
-//            'options' => ['placeholder' => 'Select a state ...'],
-//            'pluginOptions' => [
-//                'allowClear' => true
-//            ],
-//        ]); ?>
+        <?= $form->field($model, 'cityId')->textInput() ?>
         <?= \yii\helpers\Html::submitButton("Submit", [
             'class' => 'btn btn-primary'
         ]) ?>

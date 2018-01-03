@@ -4,6 +4,9 @@ namespace saghar\address\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
+use yii\db\Expression;
+use yii\web\NotFoundHttpException;
 
 /**
  * This is the model class for table "tbl_address".
@@ -36,8 +39,12 @@ class Address extends \yii\db\ActiveRecord
         return [
             [
                 'class' => TimestampBehavior::className(),
-                'createdAtAttribute' => 'createAt',
-                'updatedAtAttribute' => 'updateAt',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['createAt', 'updateAt'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updateAt'],
+                ],
+                // if you're using datetime instead of UNIX timestamp:
+                'value' => new Expression('NOW()'),
             ],
         ];
     }
@@ -106,7 +113,9 @@ class Address extends \yii\db\ActiveRecord
      *
      * @internal  double $longitude longitude
      *
-     * @return Address|null
+     * @return Address
+     *
+     * @throws \RuntimeException
      */
     public static function create($data)
     {
@@ -121,9 +130,7 @@ class Address extends \yii\db\ActiveRecord
             \Yii::$app->getSession()->setFlash('success', 'آدرس ذخیره شد.');
             return $address;
         } else {
-            \Yii::error($address->getErrors());
-            \Yii::$app->getSession()->setFlash('error', 'آدرس ذخیره نشد.');
-            return null;
+            throw new \RuntimeException('آدرس ذخیره نشد.');
         }
     }
 
@@ -151,7 +158,10 @@ class Address extends \yii\db\ActiveRecord
      *
      * @internal  double $longitude longitude/null
      *
-     * @return null|Address
+     * @return Address
+     *
+     * @throws \RuntimeException
+     * @throws NotFoundHttpException
      */
     public static function edit($id, $data)
     {
@@ -166,13 +176,10 @@ class Address extends \yii\db\ActiveRecord
                 \Yii::$app->getSession()->setFlash('success', 'تغییرات ذخیره شد.');
                 return $address;
             } else {
-                \Yii::error($address->getErrors());
-                \Yii::$app->getSession()->setFlash('error', 'تغییرات ذخیره نشد.');
-                return null;
+                throw new \RuntimeException('تغییرات ذخیره نشد.');
             }
         } else {
-            \Yii::$app->getSession()->setFlash('error', 'آدرس پیدا نشد');
-            return null;
+            throw new NotFoundHttpException('آدرس پیدا نشد');
         }
     }
 
@@ -182,12 +189,25 @@ class Address extends \yii\db\ActiveRecord
      */
     public function getCityName()
     {
-        $city = City::findOne($this->id);
-        if ($city) {
-            return $city->name;
-        } else {
-            return $this->id;
-        }
+        return $this->city->name;
+    }
+
+    /**
+     * Returns state name
+     * @return int/string
+     */
+    public function getStateName()
+    {
+        return $this->city->state->name;
+    }
+
+    /**
+     * Returns country name
+     * @return int
+     */
+    public function getCountryName()
+    {
+        return $this->city->state->country->name;
     }
 
 }
