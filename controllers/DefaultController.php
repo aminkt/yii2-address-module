@@ -3,7 +3,7 @@
 namespace saghar\address\controllers;
 
 use saghar\address\models\Address;
-use saghar\address\models\City;
+use saghar\address\models\State;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 
@@ -28,53 +28,46 @@ class DefaultController extends Controller
     }
 
     /**
-     * Create address form
+     * Create new address
      * @return string
      */
-    public function actionAddressForm()
+    public function actionCreate()
     {
-        $cities = City::find()->all();
+        $model = new Address();
+        $states = State::find()->all();
+        $stateModel = new State();
 
-        return $this->render('addressForm', [
-            'cities' => $cities
+        if (\Yii::$app->getRequest()->isPost) {
+            $address = Address::create(\Yii::$app->getRequest()->post('Address'));
+            if ($address) {
+                return $this->render('index');
+            }
+        }
+
+        return $this->render('add_address', [
+            'model' => $model,
+            'states' => $states,
+            'stateModel' => $stateModel,
         ]);
     }
 
     /**
-     * Create new address
-     * @param array $data <code>
-     *      [
-     *          'cityId' => $cityId,
-     *          'address' => $address,
-     *          'zipCode' => zipCode,
-     *          'latitude' => $latitude,
-     *          'longitude' => $longitude,
-     *      ]
-     * </code>
-     *
-     * @internal  integer $cityId cityId
-     *
-     * @internal  string $zipCode zipCode
-     *
-     * @internal  double $latitude latitude
-     *
-     * @internal  double $longitude longitude
-
+     * Update address
+     * @param $id
      * @return string
      */
-    public function actionCreate($data)
+    public function actionUpdate($id)
     {
-        $address = Address::create($data);
+        $model = Address::findOne($id);
 
-        if ($address) {
-            return $this->render('index');
+        if (\Yii::$app->getRequest()->isPost) {
+            $address = Address::edit($id, \Yii::$app->getRequest()->post('Address'));
+            if ($address) {
+                return $this->render('index');
+            }
         }
-        return $this->render('address');
-    }
-
-
-    public function actionEdit($id, $data)
-    {
-        $address = Address::edit($id, $data);
+        return $this->render('update_address', [
+            'model' => $model
+        ]);
     }
 }

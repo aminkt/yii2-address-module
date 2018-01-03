@@ -98,6 +98,8 @@ class Address extends \yii\db\ActiveRecord
      *
      * @internal  integer $cityId cityId
      *
+     * @internal  string $address address/null
+     *
      * @internal  string $zipCode zipCode
      *
      * @internal  double $latitude latitude
@@ -141,6 +143,8 @@ class Address extends \yii\db\ActiveRecord
      *
      * @internal  integer $cityId cityId/null
      *
+     * @internal  string $address address/null
+     *
      * @internal  string $zipCode zipCode/null
      *
      * @internal  double $latitude latitude/null
@@ -171,4 +175,19 @@ class Address extends \yii\db\ActiveRecord
             return null;
         }
     }
+
+    /**
+     * Returns city name
+     * @return int/string
+     */
+    public function getCityName()
+    {
+        $city = City::findOne($this->id);
+        if ($city) {
+            return $city->name;
+        } else {
+            return $this->id;
+        }
+    }
+
 }
