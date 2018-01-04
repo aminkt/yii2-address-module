@@ -2,6 +2,7 @@
 
 namespace saghar\address\controllers;
 
+use aminkt\widgets\alert\Alert;
 use saghar\address\models\Address;
 use saghar\address\models\City;
 use saghar\address\models\State;
@@ -116,7 +117,7 @@ class DefaultController extends Controller
             } catch (StaleObjectException $e) {
             } catch (\Exception $e) {
                 \Yii::error($e->getMessage());
-                \Yii::$app->getSession()->setFlash("error", "آدرس حذف نشد");
+                Alert::error('خطا در انجام عملیات', 'دسته مورد نظر حذف نشد');
             }
         } else {
             throw new NotFoundHttpException("آدرس پیدا نشد");

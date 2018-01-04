@@ -2,6 +2,7 @@
 
 namespace saghar\address\models;
 
+use aminkt\widgets\alert\Alert;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -127,7 +128,7 @@ class Address extends \yii\db\ActiveRecord
         $address->longitude = isset($data['longitude']) ? $data['longitude'] : null;
 
         if ($address->save()) {
-            \Yii::$app->getSession()->setFlash('success', 'آدرس ذخیره شد.');
+            Alert::success('عملیات با موفقیت انجام شد', 'آدرس جدید ذخیره شد');
             return $address;
         } else {
             throw new \RuntimeException('آدرس ذخیره نشد.');
@@ -173,7 +174,7 @@ class Address extends \yii\db\ActiveRecord
             $address->latitude = isset($data['latitude']) ? $data['latitude'] : $address->latitude;
             $address->longitude = isset($data['longitude']) ? $data['longitude'] : $address->longitude;
             if ($address->save()) {
-                \Yii::$app->getSession()->setFlash('success', 'تغییرات ذخیره شد.');
+                Alert::success('عملیات با موفقیت انجام شد', 'آدرس ویرایش شد');
                 return $address;
             } else {
                 throw new \RuntimeException('تغییرات ذخیره نشد.');
