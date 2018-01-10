@@ -50,7 +50,7 @@ class DefaultController extends Controller
         if (\Yii::$app->getRequest()->isPost) {
             $address = Address::create(\Yii::$app->getRequest()->post('Address'));
             if ($address) {
-                return $this->render('index');
+                return $this->redirect(['index']);
             }
         }
 

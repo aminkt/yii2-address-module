@@ -12,7 +12,6 @@ $url = \yii\helpers\Url::to(['/address/default/get-cities'], true);
         <?php $form = \yii\widgets\ActiveForm::begin([
             'method' => 'post'
         ]); ?>
-        >
         <?= $form->field($model, 'address')->textarea() ?>
         <?= $form->field($model, 'zipCode')->textInput() ?>
         <?= $form->field($model, 'cityId')->textInput() ?>

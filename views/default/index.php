@@ -2,10 +2,13 @@
 /** @var \yii\data\ActiveDataProvider $dataProvider
  * @var \saghar\address\models\Address $model
  */
+
+$this->title = "مدیریت آدرس ها"
 ?>
 <div class="addressManager-default-index">
-    <h1><?= $this->context->action->uniqueId ?></h1>
+    <h1><?= $this->title ?></h1>
     <p>
+        <?= yii\helpers\Html::a('ایجاد آدرس جدید', ['/address/default/create'], ['class' => 'btn btn-primary']) ?>
         <?= \yii\grid\GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => "",
@@ -17,27 +20,21 @@
                         return $model->getCityName();
                     }
                 ],
-                ['class' => 'yii\grid\SerialColumn'],
                 [
                     'attribute' => 'zipCode'
                 ],
-                ['class' => 'yii\grid\SerialColumn'],
                 [
                     'attribute' => 'address'
                 ],
-                ['class' => 'yii\grid\SerialColumn'],
                 [
                     'attribute' => 'latitude'
                 ],
-                ['class' => 'yii\grid\SerialColumn'],
                 [
                     'attribute' => 'longitude'
                 ],
-                ['class' => 'yii\grid\SerialColumn'],
                 [
                     'attribute' => 'createAt'
                 ],
-                ['class' => 'yii\grid\SerialColumn'],
                 [
                     'attribute' => 'updateAt'
                 ],
