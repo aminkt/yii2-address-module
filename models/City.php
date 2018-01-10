@@ -3,29 +3,28 @@
 namespace saghar\address\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "tbl_city".
+ * This is the model class for table "{{%city}}".
  *
  * @property int $id
  * @property int $stateId
- * @property int $name
+ * @property string $name
  * @property double $latitude
  * @property double $longitude
  *
  * @property Address[] $addresses
  * @property State $state
- *
- * @author Saghar Mojdehi <saghar.mojdehi@gmail.com>
  */
-class City extends \yii\db\ActiveRecord
+class City extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'tbl_city';
+        return '{{%city}}';
     }
 
     /**
@@ -36,8 +35,8 @@ class City extends \yii\db\ActiveRecord
         return [
             [['stateId'], 'required'],
             [['stateId'], 'integer'],
-            [['name'], 'string'],
             [['latitude', 'longitude'], 'number'],
+            [['name'], 'string', 'max' => 255],
             [['stateId'], 'exist', 'skipOnError' => true, 'targetClass' => State::className(), 'targetAttribute' => ['stateId' => 'id']],
         ];
     }

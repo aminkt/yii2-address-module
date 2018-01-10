@@ -10,7 +10,7 @@ use yii\db\Expression;
 use yii\web\NotFoundHttpException;
 
 /**
- * This is the model class for table "tbl_address".
+ * This is the model class for table "{{%address}}".
  *
  * @property int $id
  * @property int $cityId
@@ -22,17 +22,15 @@ use yii\web\NotFoundHttpException;
  * @property string $createAt
  *
  * @property City $city
- *
- * @author Saghar Mojdehi <saghar.mojdehi@gmail.com>
  */
-class Address extends \yii\db\ActiveRecord
+class Address extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'tbl_address';
+        return '{{%address}}';
     }
 
     public function behaviors()
@@ -74,12 +72,12 @@ class Address extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'cityId' => 'City ID',
-            'address' => 'Address',
-            'zipCode' => 'Zip Code',
-            'latitude' => 'Latitude',
-            'longitude' => 'Longitude',
-            'updateAt' => 'Update At',
-            'createAt' => 'Create At',
+            'address' => 'آدرس',
+            'zipCode' => 'کدپستی',
+            'latitude' => 'عرض جغرافیایی',
+            'longitude' => 'طول جغرافیایی',
+            'updateAt' => 'تاریخ ویرایش',
+            'createAt' => 'تاریخ ایجاد',
         ];
     }
 
@@ -186,6 +184,7 @@ class Address extends \yii\db\ActiveRecord
 
     /**
      * Returns city name
+     *
      * @return int/string
      */
     public function getCityName()
@@ -195,6 +194,7 @@ class Address extends \yii\db\ActiveRecord
 
     /**
      * Returns state name
+     *
      * @return int/string
      */
     public function getStateName()
@@ -204,11 +204,11 @@ class Address extends \yii\db\ActiveRecord
 
     /**
      * Returns country name
+     *
      * @return int
      */
     public function getCountryName()
     {
         return $this->city->state->country->name;
     }
-
 }

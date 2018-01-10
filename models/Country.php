@@ -3,27 +3,26 @@
 namespace saghar\address\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "tbl_country".
+ * This is the model class for table "{{%country}}".
  *
  * @property int $id
- * @property int $name
+ * @property string $name
  * @property double $latitude
  * @property double $longitude
  *
  * @property State[] $states
- *
- * @author Saghar Mojdehi <saghar.mojdehi@gmail.com>
  */
-class Country extends \yii\db\ActiveRecord
+class Country extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'tbl_country';
+        return '{{%country}}';
     }
 
     /**
@@ -32,8 +31,8 @@ class Country extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'string'],
             [['latitude', 'longitude'], 'number'],
+            [['name'], 'string', 'max' => 255],
         ];
     }
 
@@ -57,7 +56,6 @@ class Country extends \yii\db\ActiveRecord
     {
         return $this->hasMany(State::className(), ['countryId' => 'id']);
     }
-
 
     /**
      * Create new country
