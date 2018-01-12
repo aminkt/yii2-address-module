@@ -8,14 +8,15 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "{{%city}}".
  *
- * @property int $id
- * @property int $stateId
- * @property string $name
- * @property double $latitude
- * @property double $longitude
+ * @property int       $id
+ * @property int       $stateId
+ * @property string    $name
+ * @property double    $latitude
+ * @property double    $longitude
  *
  * @property Address[] $addresses
- * @property State $state
+ * @property State     $state
+ * @property string    $stateName
  */
 class City extends ActiveRecord
 {
@@ -109,5 +110,17 @@ class City extends ActiveRecord
             \Yii::$app->getSession()->setFlash('error', 'شهر ذخیره نشد.');
             return null;
         }
+    }
+
+    /**
+     * Return state name.
+     *
+     * @return string
+     *
+     * @author Amin Keshavarz <amin@keshavarz.pro>
+     */
+    public function getStateName()
+    {
+        return $this->state->name;
     }
 }

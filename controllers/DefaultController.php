@@ -19,87 +19,51 @@ use yii\web\NotFoundHttpException;
 class DefaultController extends Controller
 {
     /**
-     * Renders the index view for the module
+     * Renders the index view for the module to show list of addresses, create and update actions.
+     *
+     * @param null|integer $id If trying to update an address this arg will find that address.
+     *
      * @return string
-     * @throws NotFoundHttpException
+     *
+     * @throws \yii\web\NotFoundHttpException
+     *
+     * @author Saghar Mozhdehi
+     * @author Amin Keshavarz <amin@keshavarz.pro>
      */
-    public function actionIndex()
+    public function actionIndex($id = null)
     {
-        $addresses = Address::find();
-        if (!$addresses) {
-            throw new NotFoundHttpException("آدرسی پیدا نشد");
-        }
         $dataProvider = new ActiveDataProvider([
-            'query' => $addresses
+            'query' => Address::find()
         ]);
-        return $this->render('index', [
-            'dataProvider' => $dataProvider
-        ]);
-    }
 
-    /**
-     * Create new address
-     * @return string
-     */
-    public function actionCreate()
-    {
-        $model = new Address();
-        $states = State::find()->all();
-        $stateModel = new State();
-
-        if (\Yii::$app->getRequest()->isPost) {
-            $address = Address::create(\Yii::$app->getRequest()->post('Address'));
-            if ($address) {
-                return $this->render('index');
+        if ($id) {
+            $model = Address::findOne($id);
+            if (!$model) {
+                throw new NotFoundHttpException("آدرس مورد نظر یافت نشد.");
             }
-        }
-
-        return $this->render('add_address', [
-            'model' => $model,
-            'states' => $states,
-            'stateModel' => $stateModel,
-        ]);
-    }
-
-    /**
-     * @param $id
-     * @return string
-     * @throws ForbiddenHttpException
-     */
-    public function actionGetCities($id)
-    {
-        if (!\Yii::$app->getRequest()->isAjax) {
-            throw new ForbiddenHttpException("شما دسترسی مجاز ندارید");
         } else {
-            $cities = City::find()->where([
-                'stateId' => $id
-            ])->all();
-            if ($cities) {
-                return json_encode(ArrayHelper::map($cities, "id", "name"));
-            }
+            $model = new Address();
         }
-    }
-
-    /**
-     * Update address
-     * @param $id
-     * @return string
-     * @throws NotFoundHttpException
-     */
-    public function actionUpdate($id)
-    {
-        $model = Address::findOne($id);
-
         if (\Yii::$app->getRequest()->isPost) {
-            $address = Address::edit($id, \Yii::$app->getRequest()->post('Address'));
-            if ($address) {
-                return $this->render('index');
+            try {
+                if ($model->isNewRecord) {
+                    $address = Address::create(\Yii::$app->getRequest()->post('Address'));
+                } else {
+                    $address = Address::edit($id, \Yii::$app->getRequest()->post('Address'));
+                }
+
+                return $this->redirect(['index']);
+            } catch (\RuntimeException $exception) {
+                Alert::error("خطا در ثبت اطلاعات", "آدرس ذخیره نشد. دوباره تلاش کنید.");
             }
         }
-        return $this->render('update_address', [
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
             'model' => $model
         ]);
     }
+
 
     /**
      * Delete address
@@ -113,8 +77,7 @@ class DefaultController extends Controller
             try {
                 $address->delete();
                 \Yii::$app->getSession()->setFlash("success", "آدرس حذف شد");
-                $this->render('index');
-            } catch (StaleObjectException $e) {
+                $this->redirect('index');
             } catch (\Exception $e) {
                 \Yii::error($e->getMessage());
                 Alert::error('خطا در انجام عملیات', 'دسته مورد نظر حذف نشد');

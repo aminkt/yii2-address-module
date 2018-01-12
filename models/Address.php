@@ -12,16 +12,19 @@ use yii\web\NotFoundHttpException;
 /**
  * This is the model class for table "{{%address}}".
  *
- * @property int $id
- * @property int $cityId
- * @property string $address
- * @property string $zipCode
- * @property double $latitude
- * @property double $longitude
- * @property string $updateAt
- * @property string $createAt
+ * @property int                         $id
+ * @property int                         $cityId
+ * @property string                      $address
+ * @property string                      $zipCode
+ * @property double                      $latitude
+ * @property double                      $longitude
+ * @property string                      $updateAt
+ * @property string                      $createAt
  *
- * @property City $city
+ * @property \saghar\address\models\City $city
+ * @property string                      $cityName
+ * @property string                      $stateName
+ * @property string                      $countryName
  */
 class Address extends ActiveRecord
 {
@@ -71,7 +74,10 @@ class Address extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'cityId' => 'City ID',
+            'cityId' => 'شهر',
+            'cityName' => 'شهر',
+            'stateName' => 'استان',
+            'countryName' => 'کشور',
             'address' => 'آدرس',
             'zipCode' => 'کدپستی',
             'latitude' => 'عرض جغرافیایی',
