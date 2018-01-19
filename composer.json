@@ -3,7 +3,7 @@
     "description": "address module",
     "type": "yii2-extension",
     "keywords": ["yii2","extension","address","module"],
-    "license": "LGPL-3.0",
+    "license": "LGPL-3.0-or-later",
     "authors": [
         {
             "name": "Saghar Mojdehi",
