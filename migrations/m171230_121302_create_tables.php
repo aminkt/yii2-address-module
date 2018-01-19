@@ -16,8 +16,8 @@ class m171230_121302_create_tables extends Migration
         //creating tables
         $this->createTable('{{%address}}', [
             'id' => $this->primaryKey(),
-            'cityId' => $this->integer()->notNull(),
-            'address' => $this->text()->notNull(),
+            'cityId' => $this->integer(),
+            'address' => $this->text(),
             'zipCode' => $this->string(),
             'latitude' => $this->double(),
             'longitude' => $this->double(),

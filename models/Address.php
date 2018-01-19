@@ -57,7 +57,6 @@ class Address extends ActiveRecord
     public function rules()
     {
         return [
-            [['cityId', 'address'], 'required'],
             [['cityId'], 'integer'],
             [['address'], 'string'],
             [['latitude', 'longitude'], 'number'],
