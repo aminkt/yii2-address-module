@@ -14,7 +14,7 @@
         "yiisoft/yii2": "~2.0.0",
         "aminkt/yii2-alert-widget": "dev-master",
         "kartik-v/yii2-widget-select2": "@dev",
-        "kalyabin/yii2-select-google-map-location": "*"
+        "composer require kolyunya/yii2-map-input-widget": "dev-master"
     },
     "autoload": {
         "psr-4": {
