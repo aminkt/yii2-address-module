@@ -14,8 +14,6 @@
         "yiisoft/yii2": "~2.0.0",
         "aminkt/yii2-alert-widget": "dev-master",
         "kartik-v/yii2-widget-select2": "@dev",
-        "kolyunya/yii2-map-input-widget": "dev-master",
-        "voime/yii2-google-maps": "*",
         "pigochu/yii2-jquery-locationpicker": ">=0.2.0"
     },
     "autoload": {
