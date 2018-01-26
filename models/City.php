@@ -2,7 +2,6 @@
 
 namespace saghar\address\models;
 
-use Yii;
 use yii\db\ActiveRecord;
 
 /**
@@ -11,6 +10,7 @@ use yii\db\ActiveRecord;
  * @property int       $id
  * @property int       $stateId
  * @property string    $name
+ * @property string    $latinName
  * @property double    $latitude
  * @property double    $longitude
  *
@@ -37,7 +37,7 @@ class City extends ActiveRecord
             [['stateId'], 'required'],
             [['stateId'], 'integer'],
             [['latitude', 'longitude'], 'number'],
-            [['name'], 'string', 'max' => 255],
+            [['name', 'latinName'], 'string', 'max' => 255],
             [['stateId'], 'exist', 'skipOnError' => true, 'targetClass' => State::className(), 'targetAttribute' => ['stateId' => 'id']],
         ];
     }
