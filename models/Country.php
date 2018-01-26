@@ -2,7 +2,6 @@
 
 namespace saghar\address\models;
 
-use Yii;
 use yii\db\ActiveRecord;
 
 /**
@@ -10,6 +9,7 @@ use yii\db\ActiveRecord;
  *
  * @property int $id
  * @property string $name
+ * @property string    $latinName
  * @property double $latitude
  * @property double $longitude
  *
@@ -32,7 +32,7 @@ class Country extends ActiveRecord
     {
         return [
             [['latitude', 'longitude'], 'number'],
-            [['name'], 'string', 'max' => 255],
+            [['name', 'latinName'], 'string', 'max' => 255],
         ];
     }
 
