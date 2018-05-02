@@ -194,7 +194,10 @@ class Address extends ActiveRecord
      */
     public function getCityName()
     {
-        return $this->city->name;
+        if($this->city){
+            return $this->city->name;
+        }
+        return null;
     }
 
     /**
