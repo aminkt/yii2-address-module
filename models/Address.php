@@ -207,7 +207,10 @@ class Address extends ActiveRecord
      */
     public function getStateName()
     {
-        return $this->city->state->name;
+        if($this->city and $this->city->stateId){
+            return $this->city->state->name;
+        }
+        return null;
     }
 
     /**
@@ -217,6 +220,9 @@ class Address extends ActiveRecord
      */
     public function getCountryName()
     {
-        return $this->city->state->country->name;
+        if($this->city and $this->city->state and $this->city->state->country){
+            return $this->city->state->country->name;
+        }
+        return null;
     }
 }
