@@ -123,4 +123,12 @@ class City extends ActiveRecord
     {
         return $this->state->name;
     }
+
+
+    public function fields()
+    {
+        $fields = parent::fields();
+        $fields[] = 'state';
+        return $fields;
+    }
 }
