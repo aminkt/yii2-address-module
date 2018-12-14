@@ -1,5 +1,5 @@
 {
-    "name": "saghar/yii2-address-module",
+    "name": "aminkt/yii2-address-module",
     "description": "address module",
     "type": "yii2-extension",
     "keywords": ["yii2","extension","address","module"],
@@ -8,6 +8,10 @@
         {
             "name": "Saghar Mojdehi",
             "email": "saghar.mojdehi@gmail.com"
+        },
+        {
+            "name": "Amin Keshavarz",
+            "email": "ak_1596@yahoo.com"
         }
     ],
     "require": {
