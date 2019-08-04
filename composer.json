@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "saghar\\address\\": ""
+            "aminkt\\yii2\\address\\": ""
         }
     }
 }
